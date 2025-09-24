@@ -3,7 +3,7 @@ import tempfile
 import textwrap
 import ast
 
-from flake8_non_english_comments.checker import NonEnglishChecker
+from flake8_no_english.checker import NonEnglishChecker
 
 
 def run_checker(code: str, enable_strings: bool = False, disable_comments: bool = False):

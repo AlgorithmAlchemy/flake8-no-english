@@ -1,4 +1,4 @@
 # flake8-no-emoji/__init__.py
-from .checker import NoEnglish
+from .checker import NonEnglishChecker
 
-__all__ = ["NoEnglish"]
+__all__ = ["NonEnglishChecker"]
