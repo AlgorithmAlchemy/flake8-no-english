@@ -1,3 +1,37 @@
 [build-system]
-requires = [""]
+requires = ["setuptools>=42", "wheel"]
 build-backend = "setuptools.build_meta"
+
+[project]
+name = "flake8-non-english"
+version = "0.1.0"
+description = "Flake8 plugin to detect non-English comments and string literals"
+readme = "README.md"
+authors = [
+    { name = "AlgorithmAlchemy", email = "your@email.com" }
+]
+requires-python = ">=3.8"
+keywords = [
+    "flake8", "linter", "comments", "strings", "non-english", "ascii",
+    "code-quality", "static-analysis", "plugin", "python"
+]
+license = { text = "MIT" }
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "Topic :: Software Development :: Quality Assurance",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Text Processing :: Linguistic",
+    "Framework :: Flake8",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "License :: OSI Approved :: MIT License",
+]
+
+[project.entry-points."flake8.extension"]
+NL = "flake8_non_english_comments.checker:NonEnglishChecker"
