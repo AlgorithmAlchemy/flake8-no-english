@@ -1,7 +1,5 @@
 # flake8-non-english
 
-`⭐️ Thanks everyone who has starred the project, it means a lot!`
-
 [![PyPI version](https://img.shields.io/pypi/v/flake8-non-english.svg?logo=pypi&logoColor=white)](https://pypi.org/project/flake8-non-english/)
 Install from **PyPI** by clicking the badge above
 
@@ -11,8 +9,8 @@ View the **source code on GitHub**
 ![Downloads](https://pepy.tech/badge/flake8-non-english)
 ![License](https://img.shields.io/pypi/l/flake8-non-english.svg)
 
-**Flake8 plugin that detects and reports any non-English text in Python code.**  
-Helps enforce consistency in codebases by flagging comments, docstrings, and string literals that contain non-ASCII characters.
+**Flake8 plugin that enforces corporate code style by detecting and reporting any non-English text in Python source code.**  
+It ensures that comments, docstrings, and string literals are written in English only, maintaining consistency across the codebase.
 
 ---
 
@@ -59,11 +57,21 @@ Example output:
 ## Example
 
 ```python
-# Привет мир   # ❌ flagged
+# This is a valid English comment
 def hello():
-    """Пример функции"""  # ❌ flagged
-    msg = "こんにちは"     # ❌ flagged
-    return "Hello"        # ✅ OK
+    """Valid English docstring"""
+    msg = "Hello world"
+    return msg
+```
+
+If non-English text is introduced, it will be flagged:
+
+```python
+# Comment with non-English text  # ❌ flagged
+def hello():
+    """Function description with non-English text"""  # ❌ flagged
+    msg = "String with non-English text"  # ❌ flagged
+    return "Hello"  # ✅ OK
 ```
 
 ---

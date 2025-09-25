@@ -296,6 +296,7 @@ def test_one_line_docstring():
 def test_unreadable_file(monkeypatch):
     def fake_open(*args, **kwargs):
         raise OSError("Cannot open file")
+
     monkeypatch.setattr("builtins.open", fake_open)
 
     code = ""
@@ -314,7 +315,6 @@ def test_binary_file():
         assert results == []
     finally:
         os.remove(tmp_name)
-
 
 
 def test_emoji_in_comment():
