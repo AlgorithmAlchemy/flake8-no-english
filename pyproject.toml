@@ -1,9 +1,10 @@
+# pyproject.toml
 [build-system]
 requires = ["setuptools>=42", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "flake8-non-english"
+name = "flake8-no-english"
 version = "0.1.0"
 description = "Flake8 plugin to detect non-English comments and string literals"
 readme = "README.md"
@@ -34,4 +35,4 @@ classifiers = [
 ]
 
 [project.entry-points."flake8.extension"]
-NL = "flake8_non_english_comments.checker:NonEnglishChecker"
+NLE = "flake8_no_english.checker:NonEnglishChecker"

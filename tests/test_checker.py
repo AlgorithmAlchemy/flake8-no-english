@@ -18,8 +18,8 @@ def run_checker(code: str, enable_strings: bool = False, disable_comments: bool 
         with open(tmp_name, "r", encoding="utf-8") as f:
             tree = ast.parse(f.read(), filename=tmp_name)
 
-        NonEnglishChecker.nl_comments = not disable_comments
-        NonEnglishChecker.nl_strings = enable_strings
+        NonEnglishChecker.nle_comments = not disable_comments
+        NonEnglishChecker.nle_strings = enable_strings
 
         checker = NonEnglishChecker(tree=tree, filename=tmp_name)
         return list(checker.run())
@@ -49,7 +49,7 @@ def test_non_english_in_comment():
         """
     )
     results = run_checker(code)
-    assert any("NL001" in r[2] for r in results)
+    assert any("NLE001" in r[2] for r in results)
 
 
 def test_non_english_in_string_disabled_by_default():
@@ -71,7 +71,7 @@ def test_non_english_in_string_enabled():
         '''
     )
     results = run_checker(code, enable_strings=True)
-    assert any("NL002" in r[2] for r in results)
+    assert any("NLE002" in r[2] for r in results)
 
 
 def test_disable_comment_check():
@@ -115,7 +115,7 @@ def test_multiple_non_english_words_in_one_comment():
     )
     results = run_checker(code)
     assert len(results) == 1
-    assert "NL001" in results[0][2]
+    assert "NLE001" in results[0][2]
 
 
 def test_multiline_comment():
@@ -130,7 +130,7 @@ def test_multiline_comment():
         '''
     )
     results = run_checker(code)
-    assert any("NL001" in r[2] for r in results)
+    assert any("NLE001" in r[2] for r in results)
 
 
 def test_english_comment_russian_string():
@@ -142,8 +142,8 @@ def test_english_comment_russian_string():
         '''
     )
     results = run_checker(code, enable_strings=True)
-    assert any("NL002" in r[2] for r in results)
-    assert all("NL001" not in r[2] for r in results)
+    assert any("NLE002" in r[2] for r in results)
+    assert all("NLE001" not in r[2] for r in results)
 
 
 # Additional tests
@@ -156,7 +156,7 @@ def test_non_english_in_function_argument():
         '''
     )
     results = run_checker(code, enable_strings=True)
-    assert any("NL002" in r[2] for r in results)
+    assert any("NLE002" in r[2] for r in results)
 
 
 def test_non_english_docstring():
@@ -168,7 +168,7 @@ def test_non_english_docstring():
         '''
     )
     results = run_checker(code, enable_strings=True)
-    assert any("NL002" in r[2] for r in results)
+    assert any("NLE002" in r[2] for r in results)
 
 
 def test_multiline_non_english_docstring():
@@ -183,7 +183,7 @@ def test_multiline_non_english_docstring():
         '''
     )
     results = run_checker(code, enable_strings=True)
-    assert any("NL002" in r[2] for r in results)
+    assert any("NLE002" in r[2] for r in results)
 
 
 def test_non_english_in_type_annotation():
@@ -194,7 +194,7 @@ def test_non_english_in_type_annotation():
         '''
     )
     results = run_checker(code, enable_strings=True)
-    assert any("NL002" in r[2] for r in results)
+    assert any("NLE002" in r[2] for r in results)
 
 
 def test_non_english_in_function_call_kwargs():
@@ -207,7 +207,7 @@ def test_non_english_in_function_call_kwargs():
         '''
     )
     results = run_checker(code, enable_strings=True)
-    assert any("NL002" in r[2] for r in results)
+    assert any("NLE002" in r[2] for r in results)
 
 
 def test_english_only_comment_and_string():
@@ -230,7 +230,7 @@ def test_non_english_in_fstring():
         '''
     )
     results = run_checker(code, enable_strings=True)
-    assert any("NL002" in r[2] for r in results)
+    assert any("NLE002" in r[2] for r in results)
 
 
 def test_non_english_in_comment_and_string():
@@ -242,8 +242,8 @@ def test_non_english_in_comment_and_string():
         '''
     )
     results = run_checker(code, enable_strings=True)
-    assert any("NL001" in r[2] for r in results)
-    assert any("NL002" in r[2] for r in results)
+    assert any("NLE001" in r[2] for r in results)
+    assert any("NLE002" in r[2] for r in results)
 
 
 def test_empty_comment():
@@ -267,7 +267,7 @@ def test_non_english_spanish_comment():
         '''
     )
     results = run_checker(code)
-    assert any("NL001" in r[2] for r in results)
+    assert any("NLE001" in r[2] for r in results)
 
 
 def test_string_check_disabled():
@@ -278,7 +278,7 @@ def test_string_check_disabled():
         '''
     )
     results = run_checker(code, enable_strings=False)
-    assert all("NL002" not in r[2] for r in results)
+    assert all("NLE002" not in r[2] for r in results)
 
 
 def test_one_line_docstring():
@@ -290,7 +290,7 @@ def test_one_line_docstring():
         '''
     )
     results = run_checker(code, enable_strings=True)
-    assert any("NL002" in r[2] for r in results)
+    assert any("NLE002" in r[2] for r in results)
 
 
 def test_unreadable_file(monkeypatch):
@@ -326,7 +326,7 @@ def test_emoji_in_comment():
         '''
     )
     results = run_checker(code)
-    assert any("NL001" in r[2] for r in results)
+    assert any("NLE001" in r[2] for r in results)
 
 
 def test_disable_all_checks():
@@ -339,3 +339,164 @@ def test_disable_all_checks():
     )
     results = run_checker(code, enable_strings=False, disable_comments=True)
     assert results == []
+
+
+def test_unicode_escape_in_string():
+    code = 'def foo(): return "\\u041f\\u0440\\u0438\\u0432\\u0435\\u0442"'
+    results = run_checker(code, enable_strings=True)
+    assert any("NLE002" in r[2] for r in results)
+
+
+def test_raw_string_with_non_english():
+    code = r'def foo(): return r"Привет\nмир"'
+    results = run_checker(code, enable_strings=True)
+    assert any("NLE002" in r[2] for r in results)
+
+
+def test_fstring_only_english():
+    code = 'def foo(): return f"Hello {42}"'
+    results = run_checker(code, enable_strings=True)
+    assert results == []
+
+
+def test_non_english_with_noqa():
+    code = '# Привет мир  # noqa\n'
+    results = run_checker(code)
+    assert results == []  # noqa должен отключать
+
+
+def test_mixed_alphabet_comment():
+    code = '# HelloПриветWorld\n'
+    results = run_checker(code)
+    assert any("NLE001" in r[2] for r in results)
+
+
+def test_async_function_with_non_english_docstring():
+    code = textwrap.dedent('''
+        async def foo():
+            """Докстрока"""
+            return 42
+    ''')
+    results = run_checker(code, enable_strings=True)
+    assert any("NLE002" in r[2] for r in results)
+
+
+def test_comment_with_multiple_noqa():
+    code = '# Привет мир  # noqa # noqa\n'
+    results = run_checker(code)
+    assert results == []
+
+
+def test_string_with_noqa():
+    code = 'def foo(): return "Привет"  # noqa\n'
+    results = run_checker(code, enable_strings=True)
+    assert results == []
+
+
+def test_fstring_with_multiple_non_english_segments():
+    code = 'def foo(): return f"Hello {42} Привет мир"'
+    results = run_checker(code, enable_strings=True)
+    assert any("NLE002" in r[2] for r in results)
+
+
+def test_docstring_with_html_and_non_english():
+    code = textwrap.dedent(
+        '''
+        def foo():
+            """
+            <p>Привет мир</p>
+            """
+            return 42
+        '''
+    )
+    results = run_checker(code, enable_strings=True)
+    assert any("NLE002" in r[2] for r in results)
+
+
+def test_binary_file_with_no_code():
+    with tempfile.NamedTemporaryFile("wb", delete=False) as tmp:
+        tmp.write(b"\xFF\xFE\x00\x01")
+        tmp_name = tmp.name
+
+    try:
+        checker = NonEnglishChecker(tree=None, filename=tmp_name)
+        results = list(checker.run())
+        assert results == []
+    finally:
+        os.remove(tmp_name)
+
+
+def test_cyrillic_comment_inside_function():
+    code = textwrap.dedent(
+        '''
+        def foo():
+            # Привет внутри функции
+            return 42
+        '''
+    )
+    results = run_checker(code)
+    assert any("NLE001" in r[2] for r in results)
+
+
+def test_class_docstring_with_non_english():
+    code = textwrap.dedent(
+        '''
+        class Foo:
+            """Класс с docstring на русском"""
+            def method(self):
+                return 42
+        '''
+    )
+    results = run_checker(code, enable_strings=True)
+    assert any("NLE002" in r[2] for r in results)
+
+
+def test_non_english_in_list_comprehension():
+    code = textwrap.dedent(
+        '''
+        def foo():
+            return [f"Привет {i}" for i in range(3)]
+        '''
+    )
+    results = run_checker(code, enable_strings=True)
+    assert any("NLE002" in r[2] for r in results)
+
+
+def test_empty_docstring():
+    code = textwrap.dedent(
+        '''
+        def foo():
+            """ """
+            return 42
+        '''
+    )
+    results = run_checker(code, enable_strings=True)
+    assert results == []
+
+
+# tests/test_checker.py
+
+def test_detection_various_non_english_languages():
+    words = [
+        "Привет", "こんにちは", "안녕하세요", "你好", "שלום", "مرحبا", "नमस्ते", "γειά", "Здраво",
+        "Բարեւ", "გამარჯობა", "ሰላም", "வணக்கம்", "ನಮಸ್ಕಾರ", "ഹലോ", "ਸਤ ਸ੍ਰੀ ਅਕਾਲ",
+        "สวัสดี", "Xin chào", "Γειά", "Добрый", "Сәлем", "Здравейте", "שלום עולם",
+        "مرحبا بالعالم", "नमस्ते दुनिया", "γειά σου κόσμε", "Привіт світ", "Hej världen",
+        "Grüß Gott", "Cześć świecie", "Bună ziua", "Olá mundo", "Sziasztok világ", "Merhaba dünya",
+        "Xin chào thế giới", "Olá mundo inteiro", "Ahoj světe"
+    ]
+
+    code_lines = [f'def foo_{i}(): return "{word}"' for i, word in enumerate(words, start=1)]
+    code = "\n".join(code_lines)
+
+    results = run_checker(code, enable_strings=True)
+
+    detected_words = set()
+    for result in results:
+        line_no = result[0]
+        if line_no - 1 < len(words):
+            detected_words.add(words[line_no - 1])
+
+    missing_words = [(i+1, word) for i, word in enumerate(words) if word not in detected_words]
+
+    assert not missing_words, f"Missing detections for: {missing_words}"
