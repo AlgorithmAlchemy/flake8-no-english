@@ -9,7 +9,7 @@ version = "0.1.0"
 description = "Flake8 plugin to detect non-English comments and string literals"
 readme = "README.md"
 authors = [
-    { name = "AlgorithmAlchemy", email = "your@email.com" }
+    { name = "AlgorithmAlchemy"}
 ]
 requires-python = ">=3.8"
 keywords = [

@@ -8,10 +8,10 @@ NON_ENGLISH_RE = re.compile(r"[^\x00-\x7F]")
 
 class NonEnglishChecker:
     name = "flake8-no-english"
-    version = "0.2.0"
+    version = "0.3.0"
 
-    nle_comments = True
-    nle_strings = False
+    nle001_enabled = True
+    nle002_enabled = True
 
     def __init__(self, tree, filename="(none)"):
         self.tree = tree
@@ -19,28 +19,65 @@ class NonEnglishChecker:
 
     @classmethod
     def add_options(cls, parser):
+        # Comment checks (NLE001)
         parser.add_option(
             "--nle-comments",
             action="store_true",
-            default=True,
-            help="Enable non-English detection in comments (default: enabled)",
+            default=None,
+            help="Enable non-English detection in comments (NLE001)."
         )
+        parser.add_option(
+            "--no-nle-comments",
+            action="store_false",
+            dest="nle_comments",
+            help="Disable non-English detection in comments (NLE001)."
+        )
+
+        # String checks (NLE002)
         parser.add_option(
             "--nle-strings",
             action="store_true",
+            default=None,
+            help="Enable non-English detection in string literals (NLE002)."
+        )
+        parser.add_option(
+            "--no-nle-strings",
+            action="store_false",
+            dest="nle_strings",
+            help="Disable non-English detection in string literals (NLE002)."
+        )
+
+        # Explicit flags to disable errors separately
+        parser.add_option(
+            "--disable-nle001",
+            action="store_true",
             default=False,
-            help="Enable non-English detection in string literals (default: disabled)",
+            help="Disable NLE001 error checks (comments)."
+        )
+        parser.add_option(
+            "--disable-nle002",
+            action="store_true",
+            default=False,
+            help="Disable NLE002 error checks (strings)."
         )
 
     @classmethod
     def parse_options(cls, options):
-        cls.nle_comments = getattr(options, "nle_comments", True)
-        cls.nle_strings = getattr(options, "nle_strings", False)
+        if getattr(options, "nle_comments", None) is not None:
+            cls.nle001_enabled = options.nle_comments
+        if getattr(options, "nle_strings", None) is not None:
+            cls.nle002_enabled = options.nle_strings
+
+        # Explicit disable overrides
+        if getattr(options, "disable_nle001", False):
+            cls.nle001_enabled = False
+        if getattr(options, "disable_nle002", False):
+            cls.nle002_enabled = False
 
     def run(self):
-        if self.nle_comments:
+        if self.nle001_enabled:
             yield from self._check_comments()
-        if self.nle_strings and self.tree:
+        if self.nle002_enabled:
             yield from self._check_strings()
 
     def _check_comments(self):
