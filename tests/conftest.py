@@ -1,6 +1,6 @@
 # tests/conftest.py
 import pytest
-from flake8_no_english.checker import NonEnglishChecker
+from flake8_only_english.checker import NonEnglishChecker
 
 @pytest.fixture(autouse=True)
 def reset_flags():

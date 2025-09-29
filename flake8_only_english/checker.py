@@ -1,11 +1,11 @@
-# flake8_no_english/checker.py
+# flake8_only_english/checker.py
 
 import ast
 import tokenize
 
 
 class NonEnglishChecker:
-    name = "flake8-no-english"
+    name = "flake8-only-english"
     version = "0.4.0"
 
     nle_comments = True

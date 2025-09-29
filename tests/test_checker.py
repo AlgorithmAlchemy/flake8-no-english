@@ -5,7 +5,7 @@ import textwrap
 import ast
 import os
 
-from flake8_no_english.checker import NonEnglishChecker
+from flake8_only_english.checker import NonEnglishChecker
 
 
 def run_checker(code: str, enable_strings: bool = False, disable_comments: bool = False):
