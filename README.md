@@ -39,11 +39,19 @@ pip install flake8-non-english
 Run normally via `flake8`:
 
 ```bash
-flake8 /app
+flake8 app
 ```
 
 ```bash
-flake8 --select=NL
+flake8 --select=NLE
+```
+
+```bash
+flake8 --select=NLE001
+```
+
+```bash
+flake8 --select=NLE002
 ```
 
 Example output:
@@ -67,11 +75,11 @@ def hello():
 If non-English text is introduced, it will be flagged:
 
 ```python
-# Comment with non-English text  # ❌ flagged
+# Comment with non-English text  # 
 def hello():
-    """Function description with non-English text"""  # ❌ flagged
-    msg = "String with non-English text"  # ❌ flagged
-    return "Hello"  # ✅ OK
+    """Function description with non-English text"""  # 
+    msg = "String with non-English text"  # 
+    return "Hello"  
 ```
 
 ---

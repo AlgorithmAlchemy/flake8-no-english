@@ -497,9 +497,11 @@ def test_detection_various_non_english_languages():
         if line_no - 1 < len(words):
             detected_words.add(words[line_no - 1])
 
-    missing_words = [(i+1, word) for i, word in enumerate(words) if word not in detected_words]
+    missing_words = [(i + 1, word) for i, word in enumerate(words) if word not in detected_words]
 
     assert not missing_words, f"Missing detections for: {missing_words}"
+
+
 def test_nle001_disabled():
     code = textwrap.dedent(
         '''
@@ -541,6 +543,7 @@ def test_both_nle001_and_nle002_disabled():
     results = run_checker(code, enable_strings=True)
     assert results == []
 
+
 def test_both_nle_enabled_explicitly():
     code = textwrap.dedent(
         '''
@@ -553,12 +556,14 @@ def test_both_nle_enabled_explicitly():
     NonEnglishChecker.nle002_enabled = False
 
     NonEnglishChecker.parse_options(
-        type("Options", (), {"nle_comments": True, "nle_strings": True, "disable_nle001": False, "disable_nle002": False})()
+        type("Options", (),
+             {"nle_comments": True, "nle_strings": True, "disable_nle001": False, "disable_nle002": False})()
     )
 
     results = run_checker(code, enable_strings=True)
     assert any("NLE001" in r[2] for r in results)
     assert any("NLE002" in r[2] for r in results)
+
 
 def test_disable_flags_override():
     code = textwrap.dedent(
@@ -572,11 +577,13 @@ def test_disable_flags_override():
     NonEnglishChecker.nle002_enabled = True
 
     NonEnglishChecker.parse_options(
-        type("Options", (), {"nle_comments": True, "nle_strings": True, "disable_nle001": True, "disable_nle002": True})()
+        type("Options", (),
+             {"nle_comments": True, "nle_strings": True, "disable_nle001": True, "disable_nle002": True})()
     )
 
     results = run_checker(code, enable_strings=True)
     assert results == []
+
 
 def test_disable_flags_have_priority_over_enable():
     code = textwrap.dedent(
@@ -590,7 +597,8 @@ def test_disable_flags_have_priority_over_enable():
     NonEnglishChecker.nle002_enabled = False
 
     NonEnglishChecker.parse_options(
-        type("Options", (), {"nle_comments": True, "nle_strings": True, "disable_nle001": True, "disable_nle002": False})()
+        type("Options", (),
+             {"nle_comments": True, "nle_strings": True, "disable_nle001": True, "disable_nle002": False})()
     )
 
     results = run_checker(code, enable_strings=True)
