@@ -6,7 +6,7 @@ import tokenize
 
 class NonEnglishChecker:
     name = "flake8-only-english"
-    version = "0.3.0"
+    version = "0.3.1"
 
     nle_comments = True
     nle_strings = True

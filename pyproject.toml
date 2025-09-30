@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "flake8-only-english"
-version = "0.3.0"
+version = "0.3.1"
 description = "Flake8 plugin to detect non-English comments and string literals"
 readme = "README.md"
 authors = [
