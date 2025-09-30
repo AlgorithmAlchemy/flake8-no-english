@@ -1,12 +1,12 @@
-# flake8-non-english
+# flake8-only-english
 
-[![PyPI version](https://img.shields.io/pypi/v/flake8-non-english.svg?logo=pypi&logoColor=white)](https://pypi.org/project/flake8-non-english/)
+[![PyPI version](https://img.shields.io/pypi/v/flake8-non-english.svg?logo=pypi&logoColor=white)](https://pypi.org/project/flake8-only-english/)
 Install from **PyPI** by clicking the badge above
 
-[![GitHub](https://img.shields.io/badge/GitHub-Repository-black?logo=github&logoColor=white)](https://github.com/AlgorithmAlchemy/flake8-non-english-comments)  
+[![GitHub](https://img.shields.io/badge/GitHub-Repository-black?logo=github&logoColor=white)](https://github.com/AlgorithmAlchemy/flake8-only-english)  
 View the **source code on GitHub**
 
-![Downloads](https://pepy.tech/badge/flake8-non-english)
+![Downloads](https://pepy.tech/badge/flake8-only-english)
 ![License](https://img.shields.io/pypi/l/flake8-non-english.svg)
 
 **Flake8 plugin that enforces corporate code style by detecting and reporting any non-English text in Python source code.**  

@@ -21,25 +21,25 @@ class NonEnglishChecker:
             "--nle-comments",
             action="store_true",
             default=None,
-            help="Enable non-English detection in comments (NLE001)."
+            help="Enable only-english detection in comments (NLE001)."
         )
         parser.add_option(
             "--no-nle-comments",
             action="store_false",
             dest="nle_comments",
-            help="Disable non-English detection in comments (NLE001)."
+            help="Disable only-english detection in comments (NLE001)."
         )
         parser.add_option(
             "--nle-strings",
             action="store_true",
             default=None,
-            help="Enable non-English detection in string literals (NLE002)."
+            help="Enable only-english detection in string literals (NLE002)."
         )
         parser.add_option(
             "--no-nle-strings",
             action="store_false",
             dest="nle_strings",
-            help="Disable non-English detection in string literals (NLE002)."
+            help="Disable only-english detection in string literals (NLE002)."
         )
 
     @classmethod
@@ -98,8 +98,7 @@ class NonEnglishChecker:
         return False
 
     def _contains_non_english(self, text):
-        # Реализуй логику проверки на non-English символы
         for ch in text:
-            if ord(ch) > 127:  # пример: любые не-ASCII символы
+            if ord(ch) > 127:  
                 return True
         return False
