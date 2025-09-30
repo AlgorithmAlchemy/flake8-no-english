@@ -68,7 +68,6 @@ class NonEnglishChecker:
                         yield token.start[0], token.start[1], "NLE001 Non-English text in comment", type(self)
 
                 elif token.type == tokenize.STRING:
-                    # Это docstring, считаем как комментарий
                     if self._is_docstring(token):
                         if self._contains_non_english(token.string):
                             yield token.start[0], token.start[1], "NLE001 Non-English text in docstring", type(self)
@@ -81,16 +80,9 @@ class NonEnglishChecker:
                         yield node.lineno, node.col_offset, "NLE002 Non-English text in string literal", type(self)
 
     def _is_docstring(self, token):
-        """
-        Определяет, является ли строка docstring.
-        """
-        # Проверяем, если это тройные кавычки
         return token.string.startswith('"""') or token.string.startswith("'''")
 
     def _is_docstring_node(self, node):
-        """
-        Проверяет, является ли ast.Str узел docstring.
-        """
         parent = getattr(node, "parent", None)
         if parent and isinstance(parent, (ast.FunctionDef, ast.AsyncFunctionDef, ast.ClassDef, ast.Module)):
             if parent.body and isinstance(parent.body[0], ast.Expr):
