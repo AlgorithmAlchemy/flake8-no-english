@@ -6,7 +6,7 @@ import tokenize
 
 class NonEnglishChecker:
     name = "flake8-only-english"
-    version = "0.4.0"
+    version = "0.2.0"
 
     nle_comments = True
     nle_strings = True
@@ -99,6 +99,6 @@ class NonEnglishChecker:
 
     def _contains_non_english(self, text):
         for ch in text:
-            if ord(ch) > 127:  
+            if ord(ch) > 127:
                 return True
         return False

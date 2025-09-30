@@ -6,16 +6,16 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "flake8-only-english"
-version = "0.1.0"
+version = "0.2.0"
 description = "Flake8 plugin to detect non-English comments and string literals"
 readme = "README.md"
 authors = [
-    { name = "AlgorithmAlchemy"}
+    { name = "AlgorithmAlchemy" }
 ]
 requires-python = ">=3.8"
 keywords = [
     "flake8", "linter", "comments", "strings", "non-english", "ascii",
-    "code-quality", "static-analysis", "plugin", "python","code style",
+    "code-quality", "static-analysis", "plugin", "python", "code style",
     "quality assurance", "code standards"
 ]
 license = { text = "MIT" }
