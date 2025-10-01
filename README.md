@@ -1,5 +1,7 @@
 # flake8-only-english
 
+`⭐️ Thanks everyone who has starred the project, it means a lot!`
+
 [![PyPI version](https://img.shields.io/pypi/v/flake8-only-english.svg?logo=pypi&logoColor=white)](https://pypi.org/project/flake8-only-english/)
 Install from **PyPI** by clicking the badge above
 
