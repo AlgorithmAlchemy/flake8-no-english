@@ -76,16 +76,6 @@ def hello():
     return msg
 ```
 
-If only-english text is introduced, it will be flagged:
-
-```python
-# Comment with only-english text  # 
-def hello():
-    """Function description with only-english text"""  # 
-    msg = "String with only-english text"  # 
-    return "Hello"  
-```
-
 ---
 
 ## Example (with pre-commit)
