@@ -61,7 +61,7 @@ flake8 --select=NLE002
 Example output:
 
 ```
-/example.py:5:10: NL001 only-english text detected in comment or string
+/example.py:5:10: NLE001 Non-English text in docstring
 ```
 
 ---
@@ -101,7 +101,8 @@ pre-commit run --all-files
 
 ## Error Codes
 
-* **NL001** — only-english text detected in comment, docstring, or string literal.
+* **NLE001** — Non-English text in docstring.
+* **NLE002** — Non-English text in string literal
 
 ---
 
