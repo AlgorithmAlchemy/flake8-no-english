@@ -85,7 +85,7 @@ Add to `.pre-commit-config.yaml`:
 ```yaml
 repos:
   - repo: https://github.com/AlgorithmAlchemy/flake8-only-english
-    rev: v0.1.0
+    rev: v0.3.3
     hooks:
       - id: flake8
         additional_dependencies: [ flake8-only-english ]
