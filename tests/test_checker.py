@@ -1,16 +1,17 @@
 # tests/test_checker.py
-import pytest
-import tempfile
-import textwrap
 import ast
 import os
+import tempfile
+import textwrap
 
 from flake8_only_english.checker import NonEnglishChecker
 
 
-def run_checker(code: str, enable_strings: bool = False, disable_comments: bool = False):
+def run_checker(code: str, enable_strings: bool = False,
+                disable_comments: bool = False):
     """Helper to run the checker on given code string."""
-    with tempfile.NamedTemporaryFile("w", suffix=".py", delete=False, encoding="utf-8") as tmp:
+    with tempfile.NamedTemporaryFile("w", suffix=".py", delete=False,
+                                     encoding="utf-8") as tmp:
         tmp.write(code)
         tmp_name = tmp.name
 
@@ -478,15 +479,21 @@ def test_empty_docstring():
 
 def test_detection_various_non_english_languages():
     words = [
-        "Привет", "こんにちは", "안녕하세요", "你好", "שלום", "مرحبا", "नमस्ते", "γειά", "Здраво",
-        "Բարեւ", "გამარჯობა", "ሰላም", "வணக்கம்", "ನಮಸ್ಕಾರ", "ഹലോ", "ਸਤ ਸ੍ਰੀ ਅਕਾਲ",
-        "สวัสดี", "Xin chào", "Γειά", "Добрый", "Сәлем", "Здравейте", "שלום עולם",
-        "مرحبا بالعالم", "नमस्ते दुनिया", "γειά σου κόσμε", "Привіт світ", "Hej världen",
-        "Grüß Gott", "Cześć świecie", "Bună ziua", "Olá mundo", "Sziasztok világ", "Merhaba dünya",
+        "Привет", "こんにちは", "안녕하세요", "你好", "שלום", "مرحبا", "नमस्ते",
+        "γειά", "Здраво",
+        "Բարեւ", "გამარჯობა", "ሰላም", "வணக்கம்", "ನಮಸ್ಕಾರ", "ഹലോ",
+        "ਸਤ ਸ੍ਰੀ ਅਕਾਲ",
+        "สวัสดี", "Xin chào", "Γειά", "Добрый", "Сәлем", "Здравейте",
+        "שלום עולם",
+        "مرحبا بالعالم", "नमस्ते दुनिया", "γειά σου κόσμε", "Привіт світ",
+        "Hej världen",
+        "Grüß Gott", "Cześć świecie", "Bună ziua", "Olá mundo",
+        "Sziasztok világ", "Merhaba dünya",
         "Xin chào thế giới", "Olá mundo inteiro", "Ahoj světe"
     ]
 
-    code_lines = [f'def foo_{i}(): return "{word}"' for i, word in enumerate(words, start=1)]
+    code_lines = [f'def foo_{i}(): return "{word}"' for i, word in
+                  enumerate(words, start=1)]
     code = "\n".join(code_lines)
 
     results = run_checker(code, enable_strings=True)
@@ -497,7 +504,8 @@ def test_detection_various_non_english_languages():
         if line_no - 1 < len(words):
             detected_words.add(words[line_no - 1])
 
-    missing_words = [(i + 1, word) for i, word in enumerate(words) if word not in detected_words]
+    missing_words = [(i + 1, word) for i, word in enumerate(words) if
+                     word not in detected_words]
 
     assert not missing_words, f"Missing detections for: {missing_words}"
 
@@ -557,7 +565,8 @@ def test_both_nle_enabled_explicitly():
 
     NonEnglishChecker.parse_options(
         type("Options", (),
-             {"nle_comments": True, "nle_strings": True, "disable_nle001": False, "disable_nle002": False})()
+             {"nle_comments": True, "nle_strings": True,
+              "disable_nle001": False, "disable_nle002": False})()
     )
 
     results = run_checker(code, enable_strings=True)
@@ -578,7 +587,8 @@ def test_disable_flags_override():
 
     NonEnglishChecker.parse_options(
         type("Options", (),
-             {"nle_comments": True, "nle_strings": True, "disable_nle001": True, "disable_nle002": True})()
+             {"nle_comments": True, "nle_strings": True,
+              "disable_nle001": True, "disable_nle002": True})()
     )
 
     results = run_checker(code, enable_strings=True)
@@ -598,7 +608,8 @@ def test_disable_flags_have_priority_over_enable():
 
     NonEnglishChecker.parse_options(
         type("Options", (),
-             {"nle_comments": True, "nle_strings": True, "disable_nle001": True, "disable_nle002": False})()
+             {"nle_comments": True, "nle_strings": True,
+              "disable_nle001": True, "disable_nle002": False})()
     )
 
     results = run_checker(code, enable_strings=True)

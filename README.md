@@ -11,9 +11,11 @@ View the **source code on GitHub**
 ![Downloads](https://pepy.tech/badge/flake8-only-english)
 ![License](https://img.shields.io/pypi/l/flake8-only-english.svg)
 
-**Flake8 plugin that enforces corporate code style by detecting and reporting any only-english text in Python source
+**Flake8 plugin that enforces corporate code style by detecting and reporting
+any only-english text in Python source
 code.**  
-It ensures that comments, docstrings, and string literals are written in English only, maintaining consistency across
+It ensures that comments, docstrings, and string literals are written in
+English only, maintaining consistency across
 the codebase.
 
 ---

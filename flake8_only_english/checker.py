@@ -65,26 +65,33 @@ class NonEnglishChecker:
             for token in tokens:
                 if token.type == tokenize.COMMENT:
                     if self._contains_non_english(token.string):
-                        yield token.start[0], token.start[1], "NLE001 Non-English text in comment", type(self)
+                        yield token.start[0], token.start[
+                            1], "NLE001 Non-English text in comment", type(
+                            self)
 
                 elif token.type == tokenize.STRING:
                     if self._is_docstring(token):
                         if self._contains_non_english(token.string):
-                            yield token.start[0], token.start[1], "NLE001 Non-English text in docstring", type(self)
+                            yield token.start[0], token.start[
+                                1], "NLE001 Non-English text in docstring", type(
+                                self)
 
     def _check_strings(self):
         for node in ast.walk(self.tree):
             if isinstance(node, ast.Str):
                 if not self._is_docstring_node(node):
                     if self._contains_non_english(node.s):
-                        yield node.lineno, node.col_offset, "NLE002 Non-English text in string literal", type(self)
+                        yield node.lineno, node.col_offset, "NLE002 Non-English text in string literal", type(
+                            self)
 
     def _is_docstring(self, token):
         return token.string.startswith('"""') or token.string.startswith("'''")
 
     def _is_docstring_node(self, node):
         parent = getattr(node, "parent", None)
-        if parent and isinstance(parent, (ast.FunctionDef, ast.AsyncFunctionDef, ast.ClassDef, ast.Module)):
+        if parent and isinstance(parent,
+                                 (ast.FunctionDef, ast.AsyncFunctionDef,
+                                  ast.ClassDef, ast.Module)):
             if parent.body and isinstance(parent.body[0], ast.Expr):
                 return parent.body[0].value is node
         return False

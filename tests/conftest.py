@@ -1,5 +1,6 @@
 # tests/conftest.py
 import pytest
+
 from flake8_only_english.checker import NonEnglishChecker
 
 
